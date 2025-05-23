@@ -5,11 +5,13 @@ import accesodatos.*;
 public class TestIntefaces {
 
     public static void main(String[] args) {
-        IAccesoDatos mysql = new ImplementacionMySql();
-        IAccesoDatos oracle = new ImplementacionOracle();
-        mysql.listar();
-        oracle.listar();
-        System.out.println("Chingadera");
+        IAccesoDatos datos = new ImplementacionMySql();
+        imprimir(datos);
+        datos = new ImplementacionOracle(); // Polimorfismo
+        imprimir(datos);
     }
     
+    public static void imprimir(IAccesoDatos datos) {
+        datos.listar();
+    }
 }
