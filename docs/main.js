@@ -8,7 +8,6 @@ onload = () => {
   const botonCerrarVentana = document.getElementById("btnX");
   const resultadoJuego = document.getElementById("resultado");
   const ie = document.getElementById("ie");
-  const iframe = document.getElementById("navegador-wrapper");
   const inico = document.getElementById("inicio");
   const menuInicio = document.getElementById("menu-inicio");
   const opcionBoton = {
