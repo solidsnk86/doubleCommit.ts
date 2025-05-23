@@ -1,5 +1,5 @@
-import { abrirDialogo } from "./dialog.mjs";
-import { escucharMovimientoMouse } from "./mouse.mjs";
+import { abrirDialogo } from "./utils/dialog.mjs";
+import { escucharMovimientoMouse } from "./utils/mouse.mjs";
 
 // En cuanto cargue el DOM se ejecuta todo
 onload = () => {
@@ -33,7 +33,7 @@ onload = () => {
   const abrirVentana = () => {
     ventana.style.display = "block";
   };
-  /** Cierra ventana de la aplicación
+  /** Cierra la ventana de la aplicación
    * @returns {void}
    */
   const cerrarVentana = () => {
@@ -159,22 +159,8 @@ onload = () => {
     puntos.pc.textContent = "0";
     habilitarBotones();
   }
-  /**
-   * Función para actualizar la hora actual
-   */
-  function actualizarReloj() {
-    const ahora = new Date();
-    let horas = ahora.getHours();
-    const minutos = ahora.getMinutes().toString().padStart(2, "0");
-    const ampm = horas >= 12 ? "PM" : "AM";
 
-    horas = horas % 12;
-    horas = horas ? horas : 12;
-
-    reloj.textContent = `${horas}:${minutos} ${ampm}`;
-    setTimeout(actualizarReloj, 1000);
-  }
-
+  // Actividad botón inicio
   const manejarBotonInicio = () => {
     if (!menuInicio.checkVisibility()) {
       menuInicio.style.display = "flex";
@@ -281,7 +267,11 @@ onload = () => {
     };
   };
 
+  const worker = new Worker(new URL("./worker/clock-worker.js", import.meta.url))
+  worker.postMessage(1000)
+  worker.onmessage = (event) => {
+    reloj.textContent = event.data
+  }
   arrastrarVentana(ventana);
-  actualizarReloj();
   manejarEventosBotones();
 };
