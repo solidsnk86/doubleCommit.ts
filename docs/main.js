@@ -171,7 +171,11 @@ onload = () => {
 
   const crearVentanaNavegador = () => {
     // Crear wrapper principal
-    const url = "https://neo-wifi.vercel.app";
+    
+    const inputURL = location.href.split("address=")
+    const direccionURL = inputURL[1]
+    const url = direccionURL ? decodeURIComponent(direccionURL) : "https://neo-wifi.vercel.app"
+    console.log(url)
     const wrapper = document.createElement("div");
     wrapper.className = "navegador-wrapper";
     wrapper.id = "navegador-wrapper";
